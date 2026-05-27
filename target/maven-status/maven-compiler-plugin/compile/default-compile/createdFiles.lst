@@ -1,0 +1,7 @@
+net\berkaygunduz\spring7restmvc\model\Beer.class
+net\berkaygunduz\spring7restmvc\service\BeerService.class
+net\berkaygunduz\spring7restmvc\Spring7RestMvcApplication.class
+net\berkaygunduz\spring7restmvc\service\BeerServiceImpl.class
+net\berkaygunduz\spring7restmvc\model\Beer$BeerBuilder.class
+net\berkaygunduz\spring7restmvc\controller\BeerController.class
+net\berkaygunduz\spring7restmvc\model\BeerStyle.class
