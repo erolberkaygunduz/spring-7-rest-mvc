@@ -6,8 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class BeerControllerTest {
 
@@ -15,8 +13,8 @@ class BeerControllerTest {
     BeerController beerController;
 
     @Test
-    void getBeerByService() {
+    void getBeerById() {
 
-        System.out.println(beerController.getBeerByService(UUID.randomUUID()));
+        System.out.println(beerController.getBeerById(UUID.randomUUID()));
     }
 }
