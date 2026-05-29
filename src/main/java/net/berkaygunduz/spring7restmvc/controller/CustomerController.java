@@ -1,6 +1,5 @@
 package net.berkaygunduz.spring7restmvc.controller;
 
-import jakarta.websocket.server.PathParam;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import net.berkaygunduz.spring7restmvc.model.Customer;
@@ -56,7 +55,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = CUSTOMER_PATH_ID)
-    public Customer getCustomerByID(@PathVariable("uuid") UUID uuid){
+    public Optional<Customer> getCustomerByID(@PathVariable("uuid") UUID uuid){
         return customerService.getCustomerById(uuid);
     }
 }

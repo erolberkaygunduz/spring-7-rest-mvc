@@ -1,6 +1,5 @@
 package net.berkaygunduz.spring7restmvc.service;
 
-import ch.qos.logback.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.berkaygunduz.spring7restmvc.model.*;
 import org.springframework.stereotype.Service;
@@ -101,10 +100,10 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public Beer getBeerById(UUID id) {
+    public Optional<Beer> getBeerById(UUID id) {
 
         log.debug("Get Beer Id in service called. Id : " + id.toString());
-        return beerMap.get(id);
+        return Optional.of(beerMap.get(id));
     }
 
     @Override
