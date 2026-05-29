@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: net.berkaygunduz.spring7restmvc.Spring7RestMvcApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.238 s -- in net.berkaygunduz.spring7restmvc.Spring7RestMvcApplicationTests

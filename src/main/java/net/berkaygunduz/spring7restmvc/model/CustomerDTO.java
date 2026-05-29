@@ -9,9 +9,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Data
-public class Customer {
+public class CustomerDTO {
     private String customerName;
-    private UUID uuid;
+    private UUID id;
     private Integer version;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;

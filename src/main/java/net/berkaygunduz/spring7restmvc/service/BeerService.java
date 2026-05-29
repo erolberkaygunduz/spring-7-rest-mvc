@@ -1,20 +1,20 @@
 package net.berkaygunduz.spring7restmvc.service;
 
-import net.berkaygunduz.spring7restmvc.model.Beer;
+import net.berkaygunduz.spring7restmvc.model.BeerDTO;
 
 import java.util.*;
 
 public interface BeerService {
 
-    Optional<Beer> getBeerById(UUID id);
+    Optional<BeerDTO> getBeerById(UUID id);
 
-    List<Beer> listBeers();
+    List<BeerDTO> listBeers();
 
-    Beer saveNewBeer(Beer beer);
+    BeerDTO saveNewBeer(BeerDTO beerDTO);
 
-    void updateBeerById(UUID beerId, Beer beer);
+    void updateBeerById(UUID beerId, BeerDTO beerDTO);
 
     void deleteBeerById(UUID beerId);
 
-    void patchBeerById(UUID beerId, Beer beer);
+    void patchBeerById(UUID beerId, BeerDTO beerDTO);
 }
