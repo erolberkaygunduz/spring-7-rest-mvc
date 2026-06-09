@@ -19,41 +19,9 @@ public class BeerController {
 
     private final BeerService beerService;
 
-    @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity updateBeerPatchById(@PathVariable("beerId")UUID beerId,@RequestBody BeerDTO beerDTO){
-        beerService.patchBeerById(beerId, beerDTO);
-
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping(BEER_PATH_ID)
-    public ResponseEntity deleteBeerById(@PathVariable("beerId") UUID beerId){
-        beerService.deleteBeerById(beerId);
-
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @PutMapping(BEER_PATH_ID)
-    public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId
-            , @RequestBody BeerDTO beerDTO) {
-
-        beerService.updateBeerById(beerId, beerDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping(BEER_PATH)
-    public ResponseEntity handlePost(@RequestBody BeerDTO beerDTO) {
-        BeerDTO savedBeerDTO = beerService.saveNewBeer(beerDTO);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", BeerController.BEER_PATH +"/" + savedBeerDTO.getId().toString());
-
-        return new ResponseEntity(headers, HttpStatus.CREATED);
-    }
-
     @GetMapping(value = BEER_PATH)
     public List<BeerDTO> listBeers() {
-        return beerService.listBeers();
+        return beerService.getAllBeersAsList();
     }
 
 
@@ -63,5 +31,43 @@ public class BeerController {
         log.debug("Get Beer By Id - in controller.");
         return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
+
+    @PostMapping(BEER_PATH)
+    public ResponseEntity saveBeer(@RequestBody BeerDTO beerDTO) {
+        BeerDTO savedBeerDTO = beerService.saveNewBeer(beerDTO);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", BeerController.BEER_PATH + "/" + savedBeerDTO.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(BEER_PATH_ID)
+    public ResponseEntity deleteBeerById(@PathVariable("beerId") UUID beerId) {
+        if(!beerService.deleteBeerById(beerId)){
+            throw new NotFoundException();
+        }
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(BEER_PATH_ID)
+    public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId
+            , @RequestBody BeerDTO beerDTO) {
+
+        if (beerService.updateBeerById(beerId, beerDTO).isEmpty()) {
+            throw new NotFoundException();
+        }
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
+    @PatchMapping(BEER_PATH_ID)
+    public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDTO beerDTO) {
+        beerService.patchBeerById(beerId, beerDTO);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
 
 }
