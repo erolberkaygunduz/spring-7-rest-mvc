@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.berkaygunduz.spring7restmvc.model.BeerDTO;
 import net.berkaygunduz.spring7restmvc.service.BeerService;
 import org.springframework.http.*;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -33,7 +34,8 @@ public class BeerController {
     }
 
     @PostMapping(BEER_PATH)
-    public ResponseEntity saveBeer(@RequestBody BeerDTO beerDTO) {
+    public ResponseEntity saveBeer(@Validated @RequestBody BeerDTO beerDTO) {
+
         BeerDTO savedBeerDTO = beerService.saveNewBeer(beerDTO);
 
         HttpHeaders headers = new HttpHeaders();
@@ -52,7 +54,7 @@ public class BeerController {
 
     @PutMapping(BEER_PATH_ID)
     public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId
-            , @RequestBody BeerDTO beerDTO) {
+            ,@Validated @RequestBody BeerDTO beerDTO) {
 
         if (beerService.updateBeerById(beerId, beerDTO).isEmpty()) {
             throw new NotFoundException();
@@ -62,7 +64,7 @@ public class BeerController {
 
 
     @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDTO beerDTO) {
+    public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId, @Validated @RequestBody BeerDTO beerDTO) {
         beerService.patchBeerById(beerId, beerDTO);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);

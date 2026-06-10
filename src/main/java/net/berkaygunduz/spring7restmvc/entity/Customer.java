@@ -1,6 +1,7 @@
 package net.berkaygunduz.spring7restmvc.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -23,6 +24,8 @@ public class Customer {
     @Version
     private Integer version;
 
+    @NotNull
+    @NotBlank
     private String customerName;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
