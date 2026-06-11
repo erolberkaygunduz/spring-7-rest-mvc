@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import net.berkaygunduz.spring7restmvc.model.BeerStyle;
 import org.hibernate.annotations.*;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,7 +21,9 @@ public class Beer {
 
     @Id
     @UuidGenerator
-    @Column(length = 36,columnDefinition = "varchar",updatable = false,nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    
+    @Column(length = 36,columnDefinition = "varchar(36)",updatable = false,nullable = false)
     private UUID id;
 
     @Version

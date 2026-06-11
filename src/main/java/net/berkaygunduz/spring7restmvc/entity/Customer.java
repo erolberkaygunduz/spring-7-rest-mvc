@@ -3,7 +3,8 @@ package net.berkaygunduz.spring7restmvc.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.*;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,7 +19,8 @@ public class Customer {
 
     @Id
     @UuidGenerator
-    @Column(length = 36,columnDefinition = "varchar",updatable = false,nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(length = 36,columnDefinition = "varchar(36)",updatable = false,nullable = false)
     private UUID id;
 
     @Version
