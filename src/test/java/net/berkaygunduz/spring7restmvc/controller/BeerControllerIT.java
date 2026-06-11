@@ -65,7 +65,7 @@ class BeerControllerIT {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beerMap)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.length()", is(4)))
+                .andExpect(jsonPath("$.length()", is(1)))
                 .andReturn();
         //then
 

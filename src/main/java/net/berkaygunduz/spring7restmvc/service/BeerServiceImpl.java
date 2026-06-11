@@ -103,25 +103,32 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void patchBeerById(UUID beerId, BeerDTO beerDTO) {
+    public Optional<BeerDTO> patchBeerById(UUID beerId, BeerDTO beerDTO) {
         BeerDTO existing = beerMap.get(beerId);
 
-        Optional.ofNullable(beerDTO.getBeerName())
-                .filter(StringUtils::hasText)
-                .ifPresent(existing::setBeerName);
+        if (StringUtils.hasText(beerDTO.getBeerName())){
+            existing.setBeerName(beerDTO.getBeerName());
+        }
 
-        Optional.ofNullable(beerDTO.getBeerStyle())
-                .ifPresent(existing::setBeerStyle);
+        if (beerDTO.getBeerStyle() != null) {
+            existing.setBeerStyle(beerDTO.getBeerStyle());
+        }
 
-        Optional.ofNullable(beerDTO.getPrice())
-                .ifPresent(existing::setPrice);
+        if (beerDTO.getPrice() != null) {
+            existing.setPrice(beerDTO.getPrice());
+        }
 
-        Optional.ofNullable(beerDTO.getQuantityOnHand())
-                .ifPresent(existing::setQuantityOnHand);
+        if (beerDTO.getQuantityOnHand() != null){
+            existing.setQuantityOnHand(beerDTO.getQuantityOnHand());
+        }
 
-        Optional.ofNullable(beerDTO.getUpc())
-                .filter(StringUtils::hasText)
-                .ifPresent(existing::setUpc);
+        if (StringUtils.hasText(beerDTO.getUpc())) {
+            existing.setUpc(beerDTO.getUpc());
+        }
+        return Optional.of(existing);
+
     }
+
+
 
 }
