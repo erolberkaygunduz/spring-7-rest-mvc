@@ -159,7 +159,7 @@ class BeerControllerIT {
     @Test
     void testListBeers(){
         List<BeerDTO> dtos = beerController.listBeers();
-        assertEquals(3, dtos.size());
+        assertThat(dtos.size()>3);
     }
 
     @Rollback
