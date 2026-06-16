@@ -1,6 +1,6 @@
 package net.berkaygunduz.spring7restmvc.service;
 
-import net.berkaygunduz.spring7restmvc.model.BeerDTO;
+import net.berkaygunduz.spring7restmvc.model.*;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ public interface BeerService {
 
     Optional<BeerDTO> getBeerById(UUID id);
 
-    List<BeerDTO> getAllBeersAsList();
+    List<BeerDTO> getAllBeersAsList(String beerName, BeerStyle beerStyle, Boolean showInventory);
 
     BeerDTO saveNewBeer(BeerDTO beerDTO);
 

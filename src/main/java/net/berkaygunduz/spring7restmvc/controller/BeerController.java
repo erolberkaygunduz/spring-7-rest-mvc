@@ -2,7 +2,7 @@ package net.berkaygunduz.spring7restmvc.controller;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import net.berkaygunduz.spring7restmvc.model.BeerDTO;
+import net.berkaygunduz.spring7restmvc.model.*;
 import net.berkaygunduz.spring7restmvc.service.BeerService;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
@@ -21,10 +21,11 @@ public class BeerController {
     private final BeerService beerService;
 
     @GetMapping(value = BEER_PATH)
-    public List<BeerDTO> listBeers() {
-        return beerService.getAllBeersAsList();
+    public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName,
+                                   @RequestParam(required = false) BeerStyle beerStyle,
+                                   @RequestParam(required = false) Boolean showInventory) {
+        return beerService.getAllBeersAsList(beerName, beerStyle, showInventory);
     }
-
 
     @GetMapping(value = BEER_PATH_ID)
     public BeerDTO getBeerById(@PathVariable("beerId") UUID beerId) {
@@ -46,7 +47,7 @@ public class BeerController {
 
     @DeleteMapping(BEER_PATH_ID)
     public ResponseEntity deleteBeerById(@PathVariable("beerId") UUID beerId) {
-        if(!beerService.deleteBeerById(beerId)){
+        if (!beerService.deleteBeerById(beerId)) {
             throw new NotFoundException();
         }
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -54,7 +55,7 @@ public class BeerController {
 
     @PutMapping(BEER_PATH_ID)
     public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId
-            ,@Validated @RequestBody BeerDTO beerDTO) {
+            , @Validated @RequestBody BeerDTO beerDTO) {
 
         if (beerService.updateBeerById(beerId, beerDTO).isEmpty()) {
             throw new NotFoundException();
@@ -69,7 +70,6 @@ public class BeerController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
 
 
 }

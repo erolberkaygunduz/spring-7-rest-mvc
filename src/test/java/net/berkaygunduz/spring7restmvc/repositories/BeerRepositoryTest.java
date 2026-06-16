@@ -1,21 +1,40 @@
 package net.berkaygunduz.spring7restmvc.repositories;
 
 import jakarta.validation.ConstraintViolationException;
+import net.berkaygunduz.spring7restmvc.bootstrap.BootStrapData;
 import net.berkaygunduz.spring7restmvc.entity.Beer;
 import net.berkaygunduz.spring7restmvc.model.BeerStyle;
+import net.berkaygunduz.spring7restmvc.service.BeerCsvServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Import({BootStrapData.class, BeerCsvServiceImpl.class})
 class BeerRepositoryTest {
 
     @Autowired
     BeerRepository beerRepository;
+
+/*
+    @Test
+    void should_GetListBeersByBeerStyle(){
+        List<Beer> beerList = beerRepository.findAllByBeerStyleIsLikeIgnoreCase(BeerStyle.LAGER);
+        assertEquals(336,beerList.size());
+    }
+*/
+
+    @Test
+    void should_GetListBeersByName(){
+        List<Beer> beerList = beerRepository.findAllByBeerNameIsLikeIgnoreCase("%IPA%");
+        assertEquals(336,beerList.size());
+    }
 
     @Test
     void should_SaveBeer_While_DataIsProper() {
