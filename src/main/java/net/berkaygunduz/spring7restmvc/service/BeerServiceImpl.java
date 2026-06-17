@@ -2,6 +2,7 @@ package net.berkaygunduz.spring7restmvc.service;
 
 import lombok.extern.slf4j.Slf4j;
 import net.berkaygunduz.spring7restmvc.model.*;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -57,8 +58,8 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public List<BeerDTO> getAllBeersAsList(String beerName, BeerStyle beerStyle, Boolean showInventory){
-        return new ArrayList<>(beerMap.values());
+    public Page<BeerDTO> getAllBeersAsList(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize){
+        return new PageImpl<>(new ArrayList<>(beerMap.values()));
     }
 
     @Override
