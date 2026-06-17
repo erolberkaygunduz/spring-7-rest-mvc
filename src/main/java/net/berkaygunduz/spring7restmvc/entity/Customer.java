@@ -7,7 +7,7 @@ import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.*;
 
 @Builder
 @Getter
@@ -22,17 +22,16 @@ public class Customer {
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(length = 36,columnDefinition = "varchar(36)",updatable = false,nullable = false)
     private UUID id;
-
-    @Version
-    private Integer version;
-
-    @NotNull
-    @NotBlank
     private String customerName;
 
     @Column(length = 255)
     private String email;
 
+    @Version
+    private Integer version;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<BeerOrder> beerOrders;
 }
